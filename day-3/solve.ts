@@ -7,48 +7,39 @@ const getInput = () => {
   return puzzleInput;
 };
 
-const partOne = (banks: string[]) => {
+const solve = (banks: string[], numDigits = 2) => {
   let totalJoltage = 0;
 
   for (const bank of banks) {
-    let firstDigit = 0;
-    let firstIdx = 0;
+    const digits = new Array(numDigits);
 
-    for (let j = 0; j < bank.length - 1; j++) {
-      const num = parseInt(bank[j]!);
+    let start = 0;
 
-      if (num > firstDigit) {
-        firstDigit = num;
-        firstIdx = j;
+    for (let i = 0; i < numDigits; i++) {
+      for (let j = start; j + (numDigits - i) <= bank.length; j++) {
+        const currNum = parseInt(bank[j]!);
+
+        if (!digits[i] || currNum > digits[i]) {
+          digits[i] = currNum;
+          start = j + 1;
+        }
       }
     }
 
-    let secondDigit = 0;
-    for (let j = firstIdx + 1; j < bank.length; j++) {
-      const num = parseInt(bank[j]!);
-
-      if (num > secondDigit) {
-        secondDigit = num;
-      }
-    }
-
-    const joltage = parseInt(`${firstDigit}${secondDigit}`);
-    console.log(bank, joltage);
+    const joltage = parseInt(digits.join(""));
     totalJoltage += joltage;
   }
 
   return totalJoltage;
 };
 
-const partTwo = (banks: string[]) => {};
-
 const main = () => {
   const puzzleInput = getInput();
   const banks = puzzleInput.split("\n");
 
   console.table({
-    partOne: partOne(banks),
-    partTwo: partTwo(banks),
+    partOne: solve(banks),
+    partTwo: solve(banks, 12),
   });
 };
 

@@ -15,4 +15,4 @@ My solutions for Advent of Code 2025
 ## Day 3: Lobby
 
 - [x] Part 1
-- [ ] Part 2
+- [x] Part 2
