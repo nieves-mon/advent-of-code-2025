@@ -29,5 +29,5 @@ My solutions for Advent of Code 2025
 
 ## Day 6: Trash Compactor
 
-- [ ] Part 1
+- [x] Part 1
 - [ ] Part 2
