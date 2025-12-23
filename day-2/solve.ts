@@ -28,7 +28,33 @@ const partOne = (idRanges: number[][]) => {
 
   return sumInvalidIDs;
 };
-const partTwo = (idRanges: number[][]) => {};
+const partTwo = (idRanges: number[][]) => {
+  let sumInvalidIDs = 0;
+  for (const range of idRanges) {
+    const start = range[0]!;
+    const end = range[1]!;
+
+    for (let id = start; id <= end; id++) {
+      let invalidIdFound = false;
+      const idString = id.toString();
+
+      const maxLength = Math.floor(idString.length / 2);
+
+      for (let size = 1; size <= maxLength; size++) {
+        const matchedDigits =
+          idString.match(new RegExp(`.{1,${size}}`, "g")) || [];
+        const first = matchedDigits[0];
+
+        invalidIdFound = matchedDigits.every((digit) => first === digit);
+
+        if (invalidIdFound) break;
+      }
+
+      if (invalidIdFound) sumInvalidIDs += id;
+    }
+  }
+  return sumInvalidIDs;
+};
 
 const main = () => {
   const idRanges = puzzleInput

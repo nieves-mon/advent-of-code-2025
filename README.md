@@ -10,4 +10,4 @@ My solutions for Advent of Code 2025
 ## Day 2: Gift Shop
 
 - [x] Part 1
-- [ ] Part 2
+- [x] Part 2
