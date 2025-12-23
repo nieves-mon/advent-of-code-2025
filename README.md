@@ -2,7 +2,7 @@
 
 My solutions for Advent of Code 2025
 
-### Day 1: Secret Entrance
+## Day 1: Secret Entrance
 
 - [x] Part 1
 - [x] Part 2
