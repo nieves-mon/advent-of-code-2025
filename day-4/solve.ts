@@ -7,15 +7,69 @@ const getInput = () => {
   return puzzleInput;
 };
 
-const partOne = (puzzleInput: string) => {};
-const partTwo = (puzzleInput: string) => {};
+const partOne = (rows: string[]) => {
+  let numAccessibleRolls = 0;
+
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i]!;
+    const rowLen = row.length;
+
+    for (let j = 0; j < rowLen; j++) {
+      if (row[j] !== "@") continue;
+
+      let numAdjacentRolls = 0;
+
+      const upperRow = rows[i - 1];
+      const lowerRow = rows[i + 1];
+      const rightIdx = j + 1;
+      const leftIdx = j - 1;
+
+      const isRightEdge = rightIdx === rowLen;
+      const isLeftEdge = j === 0;
+
+      // left
+      if (!isLeftEdge && row[leftIdx] === "@") numAdjacentRolls++;
+
+      // right
+      if (!isRightEdge && row[rightIdx] === "@") numAdjacentRolls++;
+
+      if (upperRow) {
+        // upper
+        if (upperRow[j] === "@") numAdjacentRolls++;
+
+        // upperleft
+        if (!isLeftEdge && upperRow[leftIdx] === "@") numAdjacentRolls++;
+
+        // upperright
+        if (!isRightEdge && upperRow[rightIdx] === "@") numAdjacentRolls++;
+      }
+
+      if (lowerRow) {
+        // lower
+        if (lowerRow[j] === "@") numAdjacentRolls++;
+
+        // lowerleft
+        if (!isLeftEdge && lowerRow[leftIdx] === "@") numAdjacentRolls++;
+
+        // lowerright
+        if (!isRightEdge && lowerRow[rightIdx] === "@") numAdjacentRolls++;
+      }
+
+      if (numAdjacentRolls < 4) numAccessibleRolls++;
+    }
+  }
+
+  return numAccessibleRolls;
+};
+const partTwo = (rows: string[]) => {};
 
 const main = () => {
   const puzzleInput = getInput();
+  const rows = puzzleInput.split("\n");
 
   console.table({
-    partOne: partOne(puzzleInput),
-    partTwo: partTwo(puzzleInput),
+    partOne: partOne(rows),
+    partTwo: partTwo(rows),
   });
 };
 
