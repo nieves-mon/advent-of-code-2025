@@ -46,7 +46,61 @@ const partOne = (lines: string[]) => {
 
   return finalSum;
 };
-const partTwo = (lines: string[]) => {};
+
+const partTwo = (lines: string[]) => {
+  const nums: number[][] = [];
+  const operators: string[] = [];
+  const numLines = lines.length;
+  const lineLen = lines[0]!.length;
+
+  let numArr: number[];
+  for (let i = 0; i < lineLen; i++) {
+    let numStr = "";
+    for (let j = numLines - 1; j >= 0; j--) {
+      const char = lines[j]![i];
+
+      if (!char?.length) continue;
+
+      if (j === numLines - 1) {
+        if (char.trim().length) {
+          nums.push([]);
+          numArr = nums[nums.length - 1]!;
+          operators.push(char);
+        }
+
+        continue;
+      }
+
+      numStr = (char + numStr).trim();
+    }
+
+    if (numStr.length) numArr!.push(Number(numStr));
+  }
+
+  console.log(nums, operators);
+
+  let finalSum = 0;
+  for (let i = 0; i < operators.length; i++) {
+    const operator = operators[i];
+    const numbers = nums[i]!;
+
+    let answer = 0;
+    switch (operator) {
+      case "+": {
+        answer = numbers.reduce((accum, currNum) => accum + currNum, 0);
+        break;
+      }
+
+      case "*": {
+        answer = numbers.reduce((accum, currNum) => accum * currNum, 1);
+      }
+    }
+
+    finalSum += answer;
+  }
+
+  return finalSum;
+};
 
 const main = () => {
   const puzzleInput = getInput();
