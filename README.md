@@ -25,7 +25,7 @@ My solutions for Advent of Code 2025
 ## Day 5: Cafeteria
 
 - [x] Part 1
-- [ ] Part 2
+- [x] Part 2
 
 ## Day 6: Trash Compactor
 
