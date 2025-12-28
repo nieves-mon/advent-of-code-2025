@@ -21,9 +21,7 @@ const partOne = (lines: string[]) => {
     }
 
     const splitters = Array.from(line.matchAll(/\^/g));
-    if (!splitters.length) {
-      continue;
-    }
+    if (!splitters.length) continue;
 
     for (const splitter of splitters) {
       const splitLoc = splitter.index;
@@ -39,7 +37,41 @@ const partOne = (lines: string[]) => {
 
   return numSplit;
 };
-const partTwo = (lines: string[]) => {};
+const partTwo = (lines: string[]): number => {
+  const startingPoint = lines[0]!.indexOf("S");
+  const currBeamIdxs: Record<number, number> = {};
+  currBeamIdxs[startingPoint] = 1;
+
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i]!;
+
+    const splitters = Array.from(line.matchAll(/\^/g));
+    if (!splitters.length) continue;
+
+    for (const splitter of splitters) {
+      const splitLoc = splitter.index;
+
+      if (!currBeamIdxs[splitLoc]) continue;
+
+      const leftId = splitLoc - 1;
+      const rightId = splitLoc + 1;
+
+      currBeamIdxs[leftId]
+        ? (currBeamIdxs[leftId] += currBeamIdxs[splitLoc])
+        : (currBeamIdxs[leftId] = currBeamIdxs[splitLoc]);
+      currBeamIdxs[rightId]
+        ? (currBeamIdxs[rightId] += currBeamIdxs[splitLoc])
+        : (currBeamIdxs[rightId] = currBeamIdxs[splitLoc]);
+
+      currBeamIdxs[splitLoc] = 0;
+    }
+  }
+
+  const numTimelines = Object.values(currBeamIdxs).reduce(
+    (sum, curr) => sum + curr
+  );
+  return numTimelines;
+};
 
 const main = () => {
   const puzzleInput = getInput();
