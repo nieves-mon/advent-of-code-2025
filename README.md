@@ -40,4 +40,4 @@ My solutions for Advent of Code 2025
 ## Day 8: Playground
 
 - [x] Part 1
-- [ ] Part 2
+- [x] Part 2

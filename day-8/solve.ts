@@ -113,7 +113,48 @@ const partOne = (boxes: BoxCoordinates[]) => {
     .slice(0, 3)
     .reduce((product, curr) => (product *= curr.size), 1);
 };
-const partTwo = (boxes: BoxCoordinates[]) => {};
+const partTwo = (boxes: BoxCoordinates[]) => {
+  const distances: { boxOne: number; boxTwo: number; distance: number }[] = [];
+  const numBoxes = boxes.length;
+
+  for (let i = 0; i < boxes.length; i++) {
+    const boxOne = boxes[i]!;
+
+    for (let j = i + 1; j < boxes.length; j++) {
+      const boxTwo = boxes[j]!;
+      const distance = calculateDistance(boxOne, boxTwo);
+
+      distances.push({
+        boxOne: i,
+        boxTwo: j,
+        distance,
+      });
+    }
+  }
+
+  distances.sort((a, b) => a.distance - b.distance);
+
+  const circuit = new Set<number>();
+  const lastPairConnected: number[] = [];
+
+  for (let i = 0; i < distances.length; i++) {
+    const distObj = distances[i]!;
+    const { boxOne, boxTwo } = distObj;
+
+    if (!circuit.has(boxOne)) circuit.add(boxOne);
+    if (!circuit.has(boxTwo)) circuit.add(boxTwo);
+
+    if (circuit.size === numBoxes) {
+      lastPairConnected.push(distObj.boxOne, distObj.boxTwo);
+      break;
+    }
+  }
+
+  return lastPairConnected.reduce(
+    (product, curr) => (product *= boxes[curr]!.x),
+    1
+  );
+};
 
 const main = () => {
   const puzzleInput = getInput();
