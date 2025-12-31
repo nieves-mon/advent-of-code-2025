@@ -41,3 +41,8 @@ My solutions for Advent of Code 2025
 
 - [x] Part 1
 - [x] Part 2
+
+## Day 9: Movie Theater
+
+- [ ] Part 1
+- [ ] Part 2
