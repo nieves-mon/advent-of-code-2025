@@ -46,3 +46,8 @@ My solutions for Advent of Code 2025
 
 - [x] Part 1
 - [ ] Part 2
+
+## Day 10: Factory
+
+- [ ] Part 1
+- [ ] Part 2
